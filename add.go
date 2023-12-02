@@ -1,10 +1,26 @@
 package sessionfrontend
 
-import "github.com/cdvelop/model"
+import (
+	"syscall/js"
 
-func Add(h *model.Handlers) (s *sessionFrontend, err string) {
+	"github.com/cdvelop/model"
+	"github.com/cdvelop/sessionhandler"
+)
 
-	s = &sessionFrontend{}
+func AddAuthAdapter(h *model.Handlers) (err string) {
 
-	return s, ""
+	s, err := sessionhandler.Add(h)
+	if err != "" {
+		return err
+	}
+
+	f := &sessionFrontend{
+		Session: s,
+	}
+
+	h.AuthAdapter = f
+
+	js.Global().Set("submitLoginForm", js.FuncOf(f.submitLoginForm))
+
+	return
 }

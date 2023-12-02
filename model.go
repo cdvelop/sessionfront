@@ -1,3 +1,9 @@
 package sessionfrontend
 
-type sessionFrontend struct{}
+import (
+	"github.com/cdvelop/sessionhandler"
+)
+
+type sessionFrontend struct {
+	*sessionhandler.Session
+}
