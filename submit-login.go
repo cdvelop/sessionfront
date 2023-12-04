@@ -39,11 +39,22 @@ func (s *sessionFrontend) submitLoginForm(this js.Value, btn []js.Value) interfa
 			s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
 
 				if err != "" {
-					s.Log(err)
+					s.UserMessage(err)
 					return
 				}
 
 				s.Log("RESULTADO SESIÓN:", result)
+
+				if len(result) != 1 {
+					s.UserMessage("error se esperaba data para inicio de sesión")
+					return
+				}
+
+				err = s.FrontendLoadBootData(result[0]["boot_data"])
+				if err != "" {
+					s.UserMessage(err)
+					return
+				}
 
 			})
 
