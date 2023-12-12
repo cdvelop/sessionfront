@@ -14,11 +14,18 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 
 	if s.current_session != nil {
 
-		s.Log("hay usuario cargado :", s.current_session.Id_session)
+		s.Log("info hay usuario cargado :", s.current_session.Id_session)
+
+		// EJECUTAMOS LA CONSTRUCCIÓN DE LA UI
+		err := s.BuildFrontendUI()
+		if err != "" {
+			s.UserMessage(this + err)
+
+		}
 
 	} else {
 
-		s.Log("no hay usuario en local. enviando data al backend:", s.Form.FormData)
+		s.Log("info no hay usuario en local. enviando data al backend:", s.Form.FormData)
 
 		s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
 
