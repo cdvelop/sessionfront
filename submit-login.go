@@ -2,12 +2,9 @@ package sessionfrontend
 
 import (
 	"syscall/js"
-
-	"github.com/cdvelop/model"
-	"github.com/cdvelop/sessionhandler"
 )
 
-func (s sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{} {
+func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{} {
 
 	const this = "submitLoginForm error "
 
@@ -15,83 +12,52 @@ func (s sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{}
 
 	s.Log(s.Session_status)
 
-	// s.CreateObjectsInDB(s.Table, true, map[string]string{
-	// 	s.Id_session:     "123",
-	// 	s.Session_status: "in",
-	// 	s.Session_encode: "xx",
-	// })
+	if s.current_session != nil {
 
-	s.ReadAsyncDataDB(model.ReadParams{
-		FROM_TABLE:      s.Table,
-		WHERE:           []string{s.Session_status},
-		SEARCH_ARGUMENT: "in",
-	}, func(r model.ReadResult) {
+		s.Log("hay usuario cargado :", s.current_session.Id_session)
 
-		if r.Error != "" {
-			s.UserMessage(r.Error)
-			return
-		}
+	} else {
 
-		if len(r.DataString) == 1 {
-			s.Log("hay usuario en db local:", r.DataString)
+		s.Log("no hay usuario en local. enviando data al backend:", s.Form.FormData)
 
-		} else {
-			s.Log("no hay usuario en local. enviando data al backend:", s.Form.FormData)
+		s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
 
-			s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
+			if err != "" {
+				s.UserMessage(err)
+				return
+			}
 
-				if err != "" {
-					s.UserMessage(err)
-					return
-				}
+			// s.Log("RESULTADO SESIÓN:", result)
 
-				// s.Log("RESULTADO SESIÓN:", result)
+			if len(result) != 1 {
+				s.UserMessage("error se esperaba data para inicio de sesión")
+				return
+			}
 
-				if len(result) != 1 {
-					s.UserMessage("error se esperaba data para inicio de sesión")
-					return
-				}
+			// SI NO HAY DATA DE ARRANQUE NO DETENGO EL FLUJO
+			err = s.FrontendLoadBootData(result[0]["boot"])
+			if err != "" {
+				s.Log(err)
+			}
 
-				// SI NO HAY DATA DE ARRANQUE NO DETENGO EL FLUJO
-				err = s.FrontendLoadBootData(result[0]["boot"])
-				if err != "" {
-					s.Log(err)
-				}
+			// DECODIFICAMOS LA SESIÓN PARA ALMACENARLA EN MEMORIA
+			err = s.DecodeStruct([]byte(result[0]["session"]), s.current_session)
+			if err != "" {
+				s.UserMessage(this + err)
+				return
+			}
 
-				// DECODIFICAMOS LA SESIÓN PARA ALMACENARLA
-				var session sessionhandler.SessionStore
+			// EJECUTAMOS LA CONSTRUCCIÓN DE LA UI
+			err = s.BuildFrontendUI()
+			if err != "" {
+				s.UserMessage(this + err)
+				return
+			}
+			//
 
-				err = s.DecodeStruct([]byte(result[0]["session"]), &session)
-				if err != "" {
-					s.UserMessage(this + err)
-					return
-				}
+		})
 
-				// ALMACENAMOS LA SESIÓN EN LA DB DEL NAVEGADOR
-				err = s.CreateObjectsInDB(s.Table, false, map[string]string{
-					s.Id_session:     session.Id_session,
-					s.Session_status: session.Session_status,
-					s.Session_encode: session.Session_encode,
-				})
-				if err != "" {
-					s.UserMessage(this + err)
-					return
-				}
-
-				// EJECUTAMOS LA CONSTRUCCIÓN DE LA UI
-				err = s.BuildFrontendUI()
-				if err != "" {
-					s.UserMessage(this + err)
-					return
-				}
-				//
-
-			})
-
-		}
-
-	})
-	// form_name := f.html_form.Get("name").String()
+	}
 
 	return nil
 

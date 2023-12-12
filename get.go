@@ -21,8 +21,9 @@ func (s *sessionFrontend) FrontendCheckUser(result func(u *model.User, err strin
 			return
 		}
 
-		result(s.BuildUserFromStoreData(r.DataString))
 	})
+
+	result(s.BuildUserFromStoreData(s.current_session.Session_encode))
 }
 
 func (s *sessionFrontend) getLoginResult(result []map[string]string, err string) {

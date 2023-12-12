@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/cdvelop/model v0.0.81
-	github.com/cdvelop/sessionhandler v0.0.7
+	github.com/cdvelop/sessionhandler v0.0.8
 )
 
 require (
