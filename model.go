@@ -5,7 +5,7 @@ import (
 )
 
 type sessionFrontend struct {
-	current_session *sessionhandler.SessionStore
+	Actual *sessionhandler.SessionStore
 
 	*sessionhandler.Session
 }

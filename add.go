@@ -15,6 +15,7 @@ func AddAuthAdapter(h *model.Handlers, c *sessionhandler.Config) (err string) {
 	}
 
 	f := &sessionFrontend{
+		Actual:  nil,
 		Session: s,
 	}
 
