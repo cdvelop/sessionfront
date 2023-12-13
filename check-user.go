@@ -13,7 +13,7 @@ func (s *sessionFrontend) FrontendCheckUser(result func(u *model.User, err strin
 
 	user, err := s.DecodeUser(s.Actual.Session_encode)
 
-	s.Log("info USER:", user.Name)
+	// s.Log("info USER:", user.Name)
 
 	result(user, err)
 }

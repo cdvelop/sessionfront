@@ -8,7 +8,7 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 
 	const this = "submitLoginForm "
 
-	s.Log("info. enviando data al backend:", s.Form.FormData)
+	// s.Log("info. enviando data al backend:", s.Form.FormData)
 
 	s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
 
@@ -24,11 +24,8 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 			return
 		}
 
-		// SI NO HAY DATA DE ARRANQUE NO DETENGO EL FLUJO
-		err = s.FrontendLoadBootData(result[0]["boot"])
-		if err != "" {
-			s.Log(err)
-		}
+		// SI NO HAY DATA DE ARRANQUE HTML NO DETENGO EL FLUJO
+		s.Log(s.FrontendLoadHtmlBootData(result[0]["boot"]))
 
 		// DECODIFICAMOS LA SESIÓN PARA ALMACENARLA EN MEMORIA
 		err = s.DecodeStruct([]byte(result[0]["session"]), &s.Actual)
@@ -37,7 +34,7 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 			return
 		}
 
-		s.Log("SESION STORE", s.Actual.Id_session)
+		// s.Log("SESION STORE", s.Actual.Id_session)
 
 		// EJECUTAMOS LA CONSTRUCCIÓN DE LA UI
 		err = s.BuildFrontendUI()

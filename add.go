@@ -20,6 +20,7 @@ func AddAuthAdapter(h *model.Handlers, c *sessionhandler.Config) (err string) {
 	}
 
 	h.AuthFrontendAdapter = f
+	h.FrontendBootDataUser = f
 
 	js.Global().Set("submitLoginForm", js.FuncOf(f.submitLoginForm))
 
