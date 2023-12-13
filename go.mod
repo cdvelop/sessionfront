@@ -8,6 +8,6 @@ require (
 )
 
 require (
-	github.com/cdvelop/object v0.0.45 // indirect
+	github.com/cdvelop/object v0.0.46 // indirect
 	github.com/cdvelop/strings v0.0.9 // indirect
 )
