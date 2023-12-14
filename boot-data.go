@@ -1,13 +1,26 @@
 package sessionfrontend
 
+import "github.com/cdvelop/model"
+
 func (d sessionFrontend) runBootActions() {
 	const t = "runBootActions error "
 	// d.Log("CORRIENDO ACTIONS DATA DE ARRANQUE")
 
 	// Establece el contenido del elemento meta a una cadena vacía
-	content, err := d.SelectContent("meta[name='JsonBootActions']", "content", true)
+	js_value, err := d.SelectContent(model.SelectDomOptions{
+		QuerySelector: "meta[name='JsonBootActions']",
+		GetContent:    "content",
+		SetAfter:      true,
+		StringReturn:  true,
+	})
 	if err != "" {
 		d.Log(t + err)
+		return
+	}
+
+	content, ok := js_value.(string)
+	if !ok {
+		d.Log(t + "contenido seleccionado no retorno como string")
 		return
 	}
 
