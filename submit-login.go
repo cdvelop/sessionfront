@@ -17,7 +17,7 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 			return
 		}
 
-		// s.Log("RESULTADO SESIÓN:", result)
+		s.Log("RESULTADO SESIÓN:", result)
 
 		if len(result) != 1 {
 			s.UserMessage("error se esperaba data para inicio de sesión")
