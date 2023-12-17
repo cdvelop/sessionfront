@@ -3,7 +3,7 @@ module github.com/cdvelop/sessionfrontend
 go 1.20
 
 require (
-	github.com/cdvelop/model v0.0.102
+	github.com/cdvelop/model v0.0.103
 	github.com/cdvelop/sessionhandler v0.0.16
 )
 
