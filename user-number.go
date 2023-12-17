@@ -1,8 +1,5 @@
 package sessionfrontend
 
-func (a sessionFrontend) UserAuthNumber() (number, err string) {
-
-	a.Log("LLAMADA DE UserAuthNumber")
-
-	return "", "error UserAuthNumber no implementado en authfrontend"
+func (s sessionFrontend) UserSessionNumber() (number, err string) {
+	return s.Actual.Session_number, ""
 }
