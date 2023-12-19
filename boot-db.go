@@ -8,7 +8,7 @@ func (d sessionFrontend) addBootDataToLocalDB(responses ...model.Response) {
 
 		// d.Log("domUpdate .... buscando objeto", r.Object)
 
-		object, err := d.MainHandlerGetObjectByName(r.Object)
+		object, err := d.GetObjectByName(r.Object)
 		if err != "" {
 			d.Log(err)
 			continue
