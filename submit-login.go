@@ -10,7 +10,7 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 
 	const this = "submitLoginForm "
 
-	// s.Log("info. enviando data al backend:", s.Form.FormData)
+	s.Log("info. enviando data al backend:", s.Form.FormData)
 
 	s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
 		if err != "" {
