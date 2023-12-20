@@ -24,6 +24,9 @@ func AddAuthAdapter(h *model.MainHandler, c *sessionhandler.Config) (err string)
 
 	s.Module.FrontendModuleHandlers.ClickedModuleEventAdapter = f
 
+	// asociamos la tecla enter al objeto
+	s.Form.KeyboardHandlerObject.KeyEnterAdapter = f
+
 	js.Global().Set("submitLoginForm", js.FuncOf(f.submitLoginForm))
 
 	return

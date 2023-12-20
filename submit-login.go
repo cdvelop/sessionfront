@@ -6,18 +6,29 @@ import (
 	"github.com/cdvelop/sessionhandler"
 )
 
-func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{} {
+func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) any {
+	s.submitForm()
+	return nil
+}
 
-	const this = "submitLoginForm "
+func (s *sessionFrontend) KeyEnter() {
+	s.submitForm()
+	// s.Log("KeyEnter sessionFrontend", s.Form.ObjectName)
+}
 
-	s.Log("info. enviando data al backend:", s.Form.FormData)
+func (s *sessionFrontend) submitForm() {
+	s.ButtonLoginDisabled(true)
+	s.DevicePeripherals.KeyboardClientDisable(true)
+
+	const e = "submitLoginForm "
+
+	// s.Log("info. enviando data al backend:", s.Form.FormData)
 
 	s.SendOneRequest("POST", "create", s.Form.ObjectName, s.Form.FormData, func(result []map[string]string, err string) {
 		if err != "" {
 			s.UserMessage(err)
 			return
 		}
-
 		// s.Log("RESULTADO SESIÓN:", result)
 
 		if len(result) != 1 {
@@ -36,16 +47,18 @@ func (s *sessionFrontend) submitLoginForm(t js.Value, btn []js.Value) interface{
 		s.Log(s.FrontendLoadHtmlBootData(result[0]["boot"]))
 		// s.Log("SESIÓN STORE", s.Actual.Id_session)
 
+		// limpiamos el formulario login
+		err = s.FormClean()
+		if err != "" {
+			s.Log(e + err)
+		}
+
 		// EJECUTAMOS LA CONSTRUCCIÓN DE LA UI
 		err = s.BuildFrontendUI()
 		if err != "" {
-			s.UserMessage(this + err)
+			s.UserMessage(e + err)
 			return
 		}
-		//
 
 	})
-
-	return nil
-
 }

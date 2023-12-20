@@ -4,17 +4,17 @@ import "syscall/js"
 
 func (s *sessionFrontend) NotifyFormIsOK() {
 
-	s.Log("sessionFrontend NotifyFormIsOK:", s.Form.FormData)
+	// s.Log("sessionFrontend NotifyFormIsOK:", s.Form.FormData)
+	// ENCENDEMOS EL BOTÓN LOGIN
 	s.ButtonLoginDisabled(false)
-	s.KeyboardDisabled(false)
+	// ENCENDEMOS LA ESCUCHA DEL TECLADO
+	s.DevicePeripherals.KeyboardClientDisable(false)
 }
 
 func (s *sessionFrontend) NotifyFormERR() {
-
-	s.Log("sessionFrontend NotifyFormERR:", s.Form.FormData)
-
+	// s.Log("sessionFrontend NotifyFormERR:", s.Form.FormData)
 	s.ButtonLoginDisabled(true)
-	s.KeyboardDisabled(true)
+	s.DevicePeripherals.KeyboardClientDisable(true)
 }
 
 func (s sessionFrontend) ButtonLoginDisabled(disabled bool) {
@@ -29,8 +29,4 @@ func (s sessionFrontend) ButtonLoginDisabled(disabled bool) {
 
 	// Habilita el botón
 	button.(js.Value).Set("disabled", disabled)
-}
-
-func (s sessionFrontend) KeyboardDisabled(disabled bool) {
-	s.Log("KeyboardDisabled:", disabled, s.Form.ObjectName)
 }
