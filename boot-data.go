@@ -1,6 +1,8 @@
 package sessionfrontend
 
-import "github.com/cdvelop/model"
+import (
+	"github.com/cdvelop/model"
+)
 
 func (d sessionFrontend) runBootActions() {
 	const t = "runBootActions error "
@@ -46,6 +48,8 @@ func (d sessionFrontend) FrontendLoadHtmlBootData(data string) (err string) {
 	if err != "" {
 		return this + err
 	}
+
+	// fmt.Println("DATA SESSION", resp)
 
 	d.addBootDataToLocalDB(resp...)
 
