@@ -53,7 +53,7 @@ func (d sessionFrontend) FrontendLoadHtmlBootData(data string) (err string) {
 
 	d.addBootDataToLocalDB(resp...)
 
-	for _, o := range d.GetAllObjects() {
+	for _, o := range d.GetAllObjects(false) {
 
 		if o.FrontHandler.NotifyBootData != nil {
 			o.FrontHandler.NotifyBootDataIsLoaded()

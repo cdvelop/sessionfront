@@ -11,7 +11,7 @@ func (s *sessionFrontend) NotifyFormIsOK() {
 	s.DevicePeripherals.KeyboardClientDisable(false)
 }
 
-func (s *sessionFrontend) NotifyFormERR() {
+func (s *sessionFrontend) NotifyFormERR(err string) {
 	// s.Log("sessionFrontend NotifyFormERR:", s.Form.FormData)
 	s.ButtonLoginDisabled(true)
 	s.DevicePeripherals.KeyboardClientDisable(true)
