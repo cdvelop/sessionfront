@@ -9,6 +9,6 @@ require (
 
 require (
 	github.com/cdvelop/object v0.0.77 // indirect
-	github.com/cdvelop/strings v0.0.11 // indirect
+	github.com/cdvelop/strings v0.0.12 // indirect
 	github.com/cdvelop/structs v0.0.1 // indirect
 )

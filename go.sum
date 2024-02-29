@@ -5,8 +5,8 @@ github.com/cdvelop/object v0.0.77 h1:d1C3QxwIXGs6XMZOcy1KT7oAToIm2aAB1qAm1Zb3ImA
 github.com/cdvelop/object v0.0.77/go.mod h1:3pXlm3LW0s614vT7XUhV+ZoJDO/o4QAxm+v71vQxPwg=
 github.com/cdvelop/sessionhandler v0.0.25 h1:rUvaKCMxIdJ6T3fUabV0C1oilXUxFFlcmNBXshqUgk8=
 github.com/cdvelop/sessionhandler v0.0.25/go.mod h1:whPlX5Z+EgZeWxQrMLMnKoJzlWN25il9AaVQn+C6dEI=
-github.com/cdvelop/strings v0.0.11 h1:8sEIyEU6yHSZf5T16li1Nej/zIjtCQbjWkHzLFgK3rQ=
-github.com/cdvelop/strings v0.0.11/go.mod h1:zNexDeXHRETbMmlmNThQeM7ksRsvzrphsCfwuSxaURk=
+github.com/cdvelop/strings v0.0.12 h1:UUu2Dz5RNUalRECQ6Q3TxRpgSgh3p8JUcgb94f3X5mI=
+github.com/cdvelop/strings v0.0.12/go.mod h1:zNexDeXHRETbMmlmNThQeM7ksRsvzrphsCfwuSxaURk=
 github.com/cdvelop/structs v0.0.1 h1:9H4JUJ/dK1zaUOpIgay4xZpP3O/Jh991nErccKknKZ8=
 github.com/cdvelop/structs v0.0.1/go.mod h1:dvym7DUgaMRqhdcDTgCQNkbuhr+HqfwdaDMeZTmIWEI=
 github.com/cdvelop/timetools v0.0.42 h1:yfSsGsfTw4QdXylseYXrmoGEtwzYJ/kGlF8a22Lv4f4=
